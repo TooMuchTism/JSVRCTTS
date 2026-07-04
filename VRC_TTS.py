@@ -61,7 +61,7 @@ if os.name.lower() == "nt":
     os.system("cls")
 else:
     os.system("clear")
-print("JSVRCTSS (Jennys Shitty VRC TTS) V 0.0.0.1 [PRE-PUBLIC]")
+print("JSVRCTSS (Jennys Shitty VRC TTS) V 0.0.0.1 [PUBLIC]")
 print("type \"help()\" for help")
 print("?", end="", flush=True)
 for line in sys.stdin:
