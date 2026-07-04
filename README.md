@@ -20,3 +20,5 @@ windows: `pipx install edge-tts` <-- you'll need to install pipx first though ma
 TODO: add more platforms here.
 Side note: I really wouldnt recomend running commands from random github repos you find around the place.
 Side side note: if you dont want to use `edge tts` just change out the command in "GEN.CONF" for whatever you wish to use.
+
+Also you'll need python3 to run the script, thats it though.
