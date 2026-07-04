@@ -1,3 +1,4 @@
 - allow the user to add shorts for gen/speech at any time
 - make the stdout more configurable
 - create more IDRC scripts for platforms such as windows or other audio servers
+- a bit more code clean up would be nice, also making better error messages would be useful.
