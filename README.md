@@ -1,5 +1,5 @@
 # JSVRCTTS
-very simple TTS app for VRC; does exactly what it says it does; uses STDIO so can be used as a simple backend if ever wished (for whatever dumb reason lol, srsly idk why you'd use my code by alr).
+very simple TTS app for VRC; does exactly what it says it does; uses STDIO so can be used as a simple backend if ever wished (for whatever dumb reason lol, srsly idk why you'd use my code but alr).
 
 # Setup
 if wished you can use the IDRK_SETUP inside of the SETUP dir, warning though you'll have to use it every time you restart. Instead you should setup your config yourself. look [here](https://wiki.archlinux.org/title/PulseAudio#Configuration_files) for more info on that.
