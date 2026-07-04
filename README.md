@@ -22,3 +22,16 @@ Side note: I really wouldnt recomend running commands from random github repos y
 Side side note: if you dont want to use `edge tts` just change out the command in "GEN.CONF" for whatever you wish to use.
 
 Also you'll need python3 to run the script, thats it though.
+
+# How to run?
+assuming you've setup everything just type in `python3 VRC_TTS.py` and it should start assuming your in the same directory as it in the command line.
+## how do I type in VR?
+Personally I just type on my keyboard while in VR, but if your standing I guess your cooked? I might make a fix for this in the future if someone asks me to.
+## how do I make it show over my VRC
+This changes depending on OS and window manager, so I can only tell you for linux+KDE.
+On KDE you right click on the window and click `keep above others`, now it will stay on top. On VRC you can click TAB to show your mouse and then click on the window, or use alt+tab to click into it. If your on VR I do not think you'll need to even be focused in the game but that is untested.
+## what do I do if it doesnt work?
+report it as an issue and I'll try to help you when I see it.
+
+
+All code here was actually made by me Jenny, so if its bad im just dumb lmao. 
