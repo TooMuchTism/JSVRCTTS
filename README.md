@@ -2,7 +2,7 @@
 very simple TTS app for VRC; does exactly what it says it does; uses STDIO so can be used as a simple backend if ever wished (for whatever dumb reason lol, srsly idk why you'd use my code by alr).
 
 # Setup
-if wished you can use the IDRK_SETUP inside of the SETUP dir, warning though you'll have to use it every time you restart. Instead you should setup your config yourself.
+if wished you can use the IDRK_SETUP inside of the SETUP dir, warning though you'll have to use it every time you restart. Instead you should setup your config yourself. look [here](https://wiki.archlinux.org/title/PulseAudio#Configuration_files) for more info on that.
 
 # Features
 I've added some features that I was shocked I didnt see more of in other apps before I made this. Simple word replacment is the biggest feature here. it has three forms.
