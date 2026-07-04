@@ -1,4 +1,4 @@
-import os, sys # we dont need to worry about the user command injecting themselves lol <-- will still fix that 
+import os, sys
 from pythonosc import udp_client
 from custom_libs.file_handler import get_replacement_list
 import custom_libs.OSC as OSC
