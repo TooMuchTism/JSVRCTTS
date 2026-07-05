@@ -1,4 +1,4 @@
-import os, sys
+import os, sys 
 from pythonosc import udp_client
 from custom_libs.file_handler import get_replacement_list
 import custom_libs.OSC as OSC
@@ -30,9 +30,9 @@ def clean_up_func(string : str) -> str:
     for word in BLACK_LIST:
         string =  string.replace(f" {word} ", f"{BLACK_LIST[word]}") # remove the black listed words
     for word in CLEAN_UP_SPEAK:
-        string = string.replace(f" {word} ", f" {CLEAN_UP_SPEAK[word]} ")
+        string = string.replace(f"{word.upper()}", f"{CLEAN_UP_SPEAK[word]}")
     for word in CLEAN_UP_GEN:
-        string = string.replace(f" {word}", f" {CLEAN_UP_GEN[word]}")
+        string = string.replace(f"{word.upper()}", f"{CLEAN_UP_GEN[word]}")
         string_shown = string_shown.replace(f"{word}", f" {CLEAN_UP_GEN[word]} ")
     print(f"=====saying=====\n{string}\n====showing====\n{string_shown}\n===============")
     return string, string_shown
@@ -61,11 +61,11 @@ if os.name.lower() == "nt":
     os.system("cls")
 else:
     os.system("clear")
-print("JSVRCTSS (Jennys Shitty VRC TTS) V 0.0.0.1 [PUBLIC]")
+print("JSVRCTSS (Jennys Shitty VRC TTS) V 0.0.0.2 [PUBLIC]")
 print("type \"help()\" for help")
 print("?", end="", flush=True)
 for line in sys.stdin:
-    input_string = f" {line} "
+    input_string = f"  {line}  "
     if "exit()" in input_string:
         exit()
     if "help()" in input_string:
