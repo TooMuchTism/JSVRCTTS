@@ -34,4 +34,6 @@ On KDE you right click on the window and click `keep above others`, now it will 
 report it as an issue and I'll try to help you when I see it.
 
 
-All code here was actually made by me Jenny, so if its bad im just dumb lmao. 
+All code here was actually made by me Jenny, so its bad because im just dumb lmao. 
+
+Also it would be very cool of you to add preset configs for differing platforms in the SETUP dir or even just make premade configs that work on other platforms; no one is forcing you too tho.
