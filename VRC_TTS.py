@@ -1,45 +1,65 @@
 import os, sys 
 from pythonosc import udp_client
 from custom_libs.file_handler import get_replacement_list
-import custom_libs.OSC as OSC
 import subprocess
 
 if __name__ != "__main__":
     print("DONT RUN THIS AS A LIBARY OR I WILL MURDER YOU MYSELF. kindly --Jenny")
     exit()
-OSC.OSC_init()
-
-    
 
 file_path = os.path.dirname(os.path.realpath(__file__)) # get where we are
 CLEAN_UP_SPEAK_PATH = os.path.join(file_path,"SPEECH_REPLACE.conf")
 CLEAN_UP_GEN_PATH = os.path.join(file_path,"GEN_REPLACE.conf")
 BLACK_LIST_PATH = os.path.join(file_path, "BLACKLIST.conf")
 GEN_CONF_PATH = os.path.join(file_path, "GEN.CONF")
+OSC_SCRIPT_PATH = os.path.join(file_path, "custom_libs", "OSC.py")
 
-CLEAN_UP_SPEAK = get_replacement_list(CLEAN_UP_SPEAK_PATH) 
-CLEAN_UP_GEN = get_replacement_list(CLEAN_UP_GEN_PATH)
-BLACK_LIST = get_replacement_list(BLACK_LIST_PATH)
-GEN_CONF = get_replacement_list(GEN_CONF_PATH)
+def call_OSC_handler(string: str):
+    subprocess.run(["pkill","-f","OSC.py"], stderr=subprocess.DEVNULL)
+    subprocess.Popen(["python3", OSC_SCRIPT_PATH, string])
 
+def clear_screen(): 
+    if os.name.lower() == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
+def term_fixup():
+    # does not apply if piped in
+    if sys.stdin.isatty():
+        # from my understanding this tells the term
+        # to handle text correctly
+        sys.stdout.write("\033[?45h") 
 
+clear_screen()
+term_fixup()
+def update_from_config(): 
+    global CLEAN_UP_SPEAK
+    global CLEAN_UP_GEN
+    global BLACK_LIST
+    global GEN_CONF
+    CLEAN_UP_SPEAK = get_replacement_list(CLEAN_UP_SPEAK_PATH) 
+    CLEAN_UP_GEN = get_replacement_list(CLEAN_UP_GEN_PATH)
+    BLACK_LIST = get_replacement_list(BLACK_LIST_PATH)
+    GEN_CONF = get_replacement_list(GEN_CONF_PATH)
+
+update_from_config()
 
 def clean_up_func(string : str) -> str:
     string = string.replace(".", " ")
     string_shown = string
-    for word in BLACK_LIST:
-        string =  string.replace(f" {word} ", f"{BLACK_LIST[word]}") # remove the black listed words
-    for word in CLEAN_UP_SPEAK:
-        string = string.replace(f"{word.upper()}", f"{CLEAN_UP_SPEAK[word]}")
     for word in CLEAN_UP_GEN:
         string = string.replace(f"{word.upper()}", f"{CLEAN_UP_GEN[word]}")
-        string_shown = string_shown.replace(f"{word}", f" {CLEAN_UP_GEN[word]} ")
+        string_shown = string_shown.replace(f"{word.upper()}", f"{CLEAN_UP_GEN[word]}")
+    for word in CLEAN_UP_SPEAK:
+        string = string.replace(f"{word.upper()}", f"{CLEAN_UP_SPEAK[word]}")
+    for word in BLACK_LIST:
+        string =  string.replace(f" {word.upper()} ", f"{BLACK_LIST[word]}") # remove the black listed words
     print(f"=====saying=====\n{string}\n====showing====\n{string_shown}\n===============")
     return string, string_shown
 
 
 def speak(speak_string : str, input_string : str):
-    OSC.OSC_SEND("/chatbox/input", input_string, [True])
+    call_OSC_handler(input_string)
     command_string_conf = GEN_CONF["cmd"]
     commands_string_run = []
     current_index = 0
@@ -55,21 +75,31 @@ def speak(speak_string : str, input_string : str):
     for command in commands_string_run:
         #print(command) # if your debugging this is nice to see
         subprocess.run(command)
-    
+def command_checker(input_string : str) -> bool:
+    # not if/elif to allow someone to batch them 
+    # eg: "reload_conf() clear()"
+    ran_command = False
+    if "exit()" in input_string:
+        exit() # no point returning
+    if "help()" in input_string:
+        print("only commands are:\nexit()\nreload_conf()\n")
+        ran_command = True
+    if "reload_conf()" in input_string:
+        update_from_config()
+        ran_command = True
+    if "clear()" in input_string:
+        clear_screen()
+        ran_command = True
+    return ran_command
 
-if os.name.lower() == "nt":
-    os.system("cls")
-else:
-    os.system("clear")
 print("JSVRCTSS (Jennys Shitty VRC TTS) V 0.0.0.2 [PUBLIC]")
 print("type \"help()\" for help")
 print("?", end="", flush=True)
 for line in sys.stdin:
     input_string = f"  {line}  "
-    if "exit()" in input_string:
-        exit()
-    if "help()" in input_string:
-        print("only command is \"exit()\"")
+    if command_checker(input_string):
+        print("?", end="", flush=True)
+        continue
     speak_string, input_string = clean_up_func(input_string)
     try:
         speak(speak_string,input_string)
